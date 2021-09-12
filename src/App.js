@@ -1,6 +1,11 @@
-import React from 'react';
+import React from "react";
+
 import { useEffect, useState } from 'react';
 import './App.css';
+
+import Home from "./Components/Home/Home";
+import { GlobalContextProvider } from "./Components/GlobalContext/GlobalContext";
+import Parent from "./Components/Parent/Parent";
 
 function App() {
   const [date, setDate] = useState(null);
@@ -13,12 +18,9 @@ function App() {
     getDate();
   }, []);
   return (
-    <main>
-      hello world
-      <div className="bg-blue-500">
-          you will see tailwindcss
-      </div>
-    </main>
+    <GlobalContextProvider>
+      <Parent/>
+    </GlobalContextProvider>
   );
 }
 
