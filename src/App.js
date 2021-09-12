@@ -1,10 +1,9 @@
 import React from "react";
 
 import { useEffect, useState } from 'react';
-import './App.css';
 
-import Home from "./Components/Home/Home";
-import { GlobalContextProvider } from "./Components/GlobalContext/GlobalContext";
+
+import { GlobalContextProvider } from "./GlobalContext/GlobalContext";
 import Parent from "./Components/Parent/Parent";
 
 function App() {
