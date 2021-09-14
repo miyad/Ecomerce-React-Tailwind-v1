@@ -10,7 +10,10 @@ export const GlobalContextProvider = props => {
     
     const [products,setProducts] = useState([]);
     const initValue = {
-        products
+        totalCount: 0,
+        cart:[
+                
+        ]
     };
     const cache=useRef({});
    
@@ -30,14 +33,14 @@ export const GlobalContextProvider = props => {
         setProducts(mydata);
     },[]);
     
-
+    
     let [state, dispatch] = useReducer(Reducer,initValue);
-    useEffect(()=>{
-        dispatch({type:"initialize",products});
-    },[products])
+    // useEffect(()=>{
+    //     dispatch({type:"initialize",products});
+    // },[products])
 
     return (
-        <GlobalContext.Provider value={[state,dispatch]}>
+        <GlobalContext.Provider value={[products,state,dispatch]}>
             {props.children}
         </GlobalContext.Provider>
     );

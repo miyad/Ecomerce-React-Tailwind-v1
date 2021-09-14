@@ -1,36 +1,48 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { GlobalContext } from '../../GlobalContext/GlobalContext';
+import React, { useContext, useEffect, useState } from "react";
+import { GlobalContext } from "../../GlobalContext/GlobalContext";
 
-import Product from '../Product/Product';
+import ModalComp from "../Modal/ModalComp";
+
+
+import Product from "../Product/Product";
+import Modal from "../Modal/Modal";
 
 const Home = () => {
+  const [products,state, dispatch] = useContext(GlobalContext);
 
-   
-    const [state,dispatch] = useContext(GlobalContext);
 
-    if(state.products.length > 0)
+
+  if (products.length > 0)
     return (
-        <div className="bg-red-100 shadow-lg">
-             Welcome to home page! <br />
-            <h4>this is h4</h4>
-            <h2>this is h2</h2>
-            <h1>this is h1</h1>
-
-            <div className="mx-6 bg-gray-100 flex flex-wrap">
-
-                {
-                    state.products.map((product)=><Product product={product} key={product.id}/>)
-                }    
+      <div>
+      <div className="bg-gray-100">
+        <header className=" bg-gray-600 h-20 fixed w-full flex justify-between">
+            <div className="px-8 py-6 text-4xl text-white font-bold">I am col 1</div>
+            <div className="text-2xl  grid grid-cols-2 items-end">
+               <div>
+               <Modal/>
+               </div>
+                <div className="text-white mb-2">
+                {state.totalCount}
+                </div>
             </div>
+        </header>
+        <div className="p-10"/>
+        <div className="flex flex-wrap justify-center">
+          {products.map((product) => (
+            <Product product={product} key={product.id} />
+          ))}
         </div>
+        <div>
+            {state.cart.map((p,index)=><li key={index}>id:{p.id} count:{p.amount}</li>)}
+        </div>
+      </div>
+      </div>
     );
-    else
-        return(
-            <div className="mt-60  text-4xl text-center">
-                Fetching Data.....
-            </div>
-        )
-    
-}
+  else
+    return (
+      <div className="mt-60  text-4xl text-center">Fetching Data.....</div>
+    );
+};
 
 export default Home;
