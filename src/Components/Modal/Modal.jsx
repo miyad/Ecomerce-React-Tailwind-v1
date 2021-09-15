@@ -1,79 +1,84 @@
-import React, {useState} from "react";
-
+import React, {useContext, useState} from "react";
+import Item from "../Cart/Item";
+import {GlobalContext} from "../../GlobalContext/GlobalContext";
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+  } from "react-router-dom";
+import cartLogo from '../../logo/cart.png';
 const Modal = () => {
 
-    const handleInputChange = e =>{
-        if(e.target.value==="")
-            setInputValue(1);
-        else
-            setInputValue(e.target.value);
 
-    }
 
     const [showModal, setShowModal] = React.useState(false);
-    const [inputValue,setInputValue] = useState(1);
 
+    const [products,{cart},dispatch] = useContext(GlobalContext);
+    const getTotal = ()=>{
+        let sum = 0;
+        console.log("cart in getTotal = ",cart);
+         cart.map(e=>sum+=Number(Number(e.amount)*Number(products.find(p=>p.id===e.id).price)));
+        return sum.toFixed(2);
+    }
 
     return (
         <>
-            <button
-                className="bg-pink-500 text-white active:bg-pink-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                type="button"
-                onClick={() => setShowModal(true)}
-            >
-                Open regular modal
-            </button>
+            <img src={cartLogo} className="w-16 mx-2 cursor-pointer mb-2" alt={""}
+                onClick={() => {setShowModal(true)}}/>
+                
             {showModal ? (
-                <>
+                <div >
                     <div
                         className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none"
                     >
                         <div className="relative w-auto my-6 mx-auto max-w-3xl">
                             {/*content*/}
-                            <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
+                            <div className="border-0 rounded-lg shadow-lg  w-full bg-white">
                                 {/*header*/}
                                 <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
-                                    <h3 className="text-3xl font-semibold">
+                                    <h3 className="text-3xl font-semibold mx-4">
                                         Cart Items
                                     </h3>
                                     <button
-                                        className="p-1 ml-auto bg-transparent border-0 text-black opacity-5 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
+                                        className="p-1 ml-auto bg-transparent  text-red-600 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
                                         onClick={() => setShowModal(false)}
                                     >
-                    <span className="bg-transparent text-black opacity-5 h-6 w-6 text-2xl block outline-none focus:outline-none">
-                      ×
-                    </span>
+                                        x
                                     </button>
                                 </div>
                                 {/*body*/}
-                                <div className="relative p-6 flex justify-between">
-                                    <div className="my-4 text-blueGray-500 text-lg leading-relaxed">
-                                        Item details
+                                <div className="relative px-6 flex flex-col justify-end">
+                                    <div className="my-4 text-blueGray-500 w-80 leading-relaxed">
+                                        {cart.length>0?<p>Item details</p>:<p>Cart is Empty!</p>}
                                     </div>
-                                    <input  onChange={(e)=>handleInputChange(e)} value={inputValue}  min={1} step={1} type={"number"} className={"bg-gray-100 border-solid  mx-12"}/>
+                                    <div>
+                                    {cart.map((product,index)=><Item id={product.id} amount={product.amount} key={index}/>)}
+                                    </div>
+                                    {cart.length>0?
+                                    <div><div className="flex justify-between">
+                                        <div><br/>Total</div>
+                                        <div className={"px-8"}>
+                                            {getTotal()}
+                                        </div>
+                                    </div>
+                                    <Link to="/checkout">
+                                    <button className="p-2 rounded bg-gray-800 text-white">Checkout</button>
+                                    </Link>
+                                    </div>:null}
+                                    {/*<input  onChange={(e)=>handleInputChange(e)} value={inputValue}  min={1} step={1} type={"number"} className={"bg-gray-100 outline-black w-28  mx-12"}/>*/}
                                 </div>
                                 {/*footer*/}
+
                                 <div className="flex items-center justify-end p-6 border-t border-solid border-blueGray-200 rounded-b">
-                                    <button
-                                        className="text-red-500 background-transparent font-bold uppercase px-6 py-2 text-sm outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                                        type="button"
-                                        onClick={() => setShowModal(false)}
-                                    >
-                                        Close
-                                    </button>
-                                    <button
-                                        className="bg-green-500 text-white active:bg-emerald-600 font-bold uppercase text-sm px-6 py-3 rounded shadow hover:shadow-lg outline-none focus:outline-none mr-1 mb-1 ease-linear transition-all duration-150"
-                                        type="button"
-                                        onClick={() => setShowModal(false)}
-                                    >
-                                        Save Changes
-                                    </button>
+                                    {cart.length>0?<button className={"bg-red-500 p-2 text-md rounded text-white"} onClick={(e)=>dispatch({type:"reset"})}>Clear Cart</button>
+                                    :null}
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div className="opacity-25 fixed inset-0 z-40 bg-black"/>
-                </>
+                </div>
             ) : null}
         </>
     );

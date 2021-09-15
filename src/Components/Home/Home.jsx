@@ -17,7 +17,7 @@ const Home = () => {
       <div>
       <div className="bg-gray-100">
         <header className=" bg-gray-600 h-20 fixed w-full flex justify-between">
-            <div className="px-8 py-6 text-4xl text-white font-bold">I am col 1</div>
+            <div className="px-8 py-6 text-4xl text-white font-bold"> Mini Mart</div>
             <div className="text-2xl  grid grid-cols-2 items-end">
                <div>
                <Modal/>

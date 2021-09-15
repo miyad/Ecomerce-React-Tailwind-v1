@@ -5,6 +5,7 @@ import {
     Route,
     Link
   } from "react-router-dom";
+import Checkout from '../Checkout/Checkout';
 import Home from '../Home/Home';
 const Parent = () => {
     return (
@@ -14,6 +15,7 @@ const Parent = () => {
                     renders the first one that matches the current URL. */}
                 <Switch>
                     <Route exact path="/" component={Home}/>
+                    <Route exat path="/checkout" component={Checkout}/>
                 </Switch>
             </Router>
         </main>

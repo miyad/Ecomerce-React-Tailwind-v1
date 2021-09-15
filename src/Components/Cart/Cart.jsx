@@ -31,37 +31,45 @@ const Cart = ({ product }) => {
     dispatch({ type: "delete", id });
   };
 
+  const emptyHandler = () => {
+    setCartOptionClass(cartOptionClass.replace("hidden", ""));
+    setCartAmountClass(cartAmountClass + " hidden");
+  };
+
   return (
     <div>
       <div className="shadow-md rounded-md bg-green-400 text-center font-semibold text-white text-lg">
-        <div className="" onClick={(e) => enableCart(e)}>
-          <a href="">
-            <div className={cartOptionClass}>Add to Cart</div>
-          </a>
-        </div>
-        <div className={cartAmountClass}>
-          <a href="">
-            <div
-              className="bg-gray-600 px-4 rounded-full"
-              onClick={(e) => handleItemAdd(e)}
-            >
-              +
-            </div>
-          </a>
-          <div>
-            {state.cart.find((obj) => obj.id === id)
-              ? state.cart.find((obj) => obj.id === id).amount
-              : 0}
+        {!state.cart.find(e=>e.id===id)? (
+          <div className="" onClick={(e) => enableCart(e)}>
+            <a href="">
+              <div className={cartOptionClass}>Add to Cart</div>
+            </a>
           </div>
-          <a href="">
-            <div
-              className="bg-gray-600 px-4 rounded-full"
-              onClick={(e) => handleItemDelete(e)}
-            >
-              -
+        ) : (
+          <div className={cartAmountClass}>
+            <a href="">
+              <div
+                className="bg-gray-600 px-4 rounded-full"
+                onClick={(e) => handleItemAdd(e)}
+              >
+                +
+              </div>
+            </a>
+            <div>
+              {state.cart.find((obj) => obj.id === id)
+                ? state.cart.find((obj) => obj.id === id).amount
+                : 0}
             </div>
-          </a>
-        </div>
+            <a href="">
+              <div
+                className="bg-gray-600 px-4 rounded-full"
+                onClick={(e) => handleItemDelete(e)}
+              >
+                -
+              </div>
+            </a>
+          </div>
+        )}
       </div>
     </div>
   );
