@@ -8,6 +8,7 @@ import {
     Link
   } from "react-router-dom";
 import cartLogo from '../../logo/cart.png';
+
 const Modal = () => {
 
 
@@ -49,10 +50,10 @@ const Modal = () => {
                                 </div>
                                 {/*body*/}
                                 <div className="relative px-6 flex flex-col justify-end">
-                                    <div className="my-4 text-blueGray-500 w-80 leading-relaxed">
+                                    <div className="my-4 text-blueGray-500 w-screen leading-relaxed">
                                         {cart.length>0?<p>Item details</p>:<p>Cart is Empty!</p>}
-                                    </div>
-                                    <div>
+                                    </div >
+                                    <div className="overflow-y-scroll h-96 min-w-60">
                                     {cart.map((product,index)=><Item id={product.id} amount={product.amount} key={index}/>)}
                                     </div>
                                     {cart.length>0?

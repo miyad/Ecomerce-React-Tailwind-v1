@@ -33,9 +33,7 @@ const Home = () => {
             <Product product={product} key={product.id} />
           ))}
         </div>
-        <div>
-            {state.cart.map((p,index)=><li key={index}>id:{p.id} count:{p.amount}</li>)}
-        </div>
+       
       </div>
       </div>
     );

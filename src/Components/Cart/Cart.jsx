@@ -50,11 +50,12 @@ const Cart = ({ product }) => {
             <a href="">
               <div
                 className="bg-gray-600 px-4 rounded-full"
-                onClick={(e) => handleItemAdd(e)}
+                onClick={(e) => handleItemDelete(e)}
               >
-                +
+                -
               </div>
             </a>
+           
             <div>
               {state.cart.find((obj) => obj.id === id)
                 ? state.cart.find((obj) => obj.id === id).amount
@@ -63,9 +64,9 @@ const Cart = ({ product }) => {
             <a href="">
               <div
                 className="bg-gray-600 px-4 rounded-full"
-                onClick={(e) => handleItemDelete(e)}
+                onClick={(e) => handleItemAdd(e)}
               >
-                -
+                +
               </div>
             </a>
           </div>
