@@ -7,7 +7,7 @@ import mainLogo from "../../logo/bee.png";
 import loadingLogo from "../../logo/loading.gif";
 
 const Home = () => {
-  const [products, state, dispatch] = useContext(GlobalContext);
+  const [products,{totalCount}, dispatch] = useContext(GlobalContext);
 
   if (products.length > 0)
     return (
@@ -22,7 +22,7 @@ const Home = () => {
               <div>
                 <Modal />
               </div>
-              <div className="text-white mb-2">{state.totalCount}</div>
+              <div className="text-white mb-2">{totalCount}</div>
             </div>
           </header>
           <div className="p-10" />
@@ -50,7 +50,7 @@ const Home = () => {
             <div>
               <Modal />
             </div>
-            <div className="text-white mb-2">{state.totalCount}</div>
+            <div className="text-white mb-2">{totalCount}</div>
           </div>
         </header>
         <div className="p-10" />

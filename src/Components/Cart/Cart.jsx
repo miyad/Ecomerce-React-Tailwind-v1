@@ -3,7 +3,7 @@ import { GlobalContext } from "../../GlobalContext/GlobalContext";
 
 const Cart = ({ product }) => {
   const { id } = product;
-  const [products, state, dispatch] = useContext(GlobalContext);
+  const [products, { cart }, dispatch] = useContext(GlobalContext);
   const [cartOptionClass, setCartOptionClass] = useState("p-2");
   const [cartAmountClass, setCartAmountClass] = useState(
     "p-2 hidden flex justify-around"
@@ -23,7 +23,7 @@ const Cart = ({ product }) => {
   };
   const handleItemDelete = (e) => {
     e.preventDefault();
-    if (state.cart.find((obj) => obj.id === id).amount === 1) {
+    if (cart.find((obj) => obj.id === id).amount === 1) {
       setCartOptionClass(cartAmountClass.replace("hidden", ""));
       setCartAmountClass(cartAmountClass + " hidden");
     }
@@ -39,7 +39,7 @@ const Cart = ({ product }) => {
   return (
     <div>
       <div className="shadow-md rounded-md bg-green-400 text-center font-semibold text-white text-lg">
-        {!state.cart.find(e=>e.id===id)? (
+        {!cart.find((e) => e.id === id) ? (
           <div className="" onClick={(e) => enableCart(e)}>
             <a href="">
               <div className={cartOptionClass}>Add to Cart</div>
@@ -55,10 +55,10 @@ const Cart = ({ product }) => {
                 -
               </div>
             </a>
-           
+
             <div>
-              {state.cart.find((obj) => obj.id === id)
-                ? state.cart.find((obj) => obj.id === id).amount
+              {cart.find((obj) => obj.id === id)
+                ? cart.find((obj) => obj.id === id).amount
                 : 0}
             </div>
             <a href="">

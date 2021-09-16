@@ -23,7 +23,6 @@ export const Reducer = (state, action) => {
         return {totalCount:totalCount-1,cart};
     case "removeItem":
           const newCart = cart.filter(e=>e.id!=data.id);
-          console.log("new cart = ",newCart);
          return {totalCount:totalCount-data.amount,cart:newCart}
     case "set":
       cart.find((obj) => obj.id === data.id)

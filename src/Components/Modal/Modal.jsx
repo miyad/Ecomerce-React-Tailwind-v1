@@ -7,11 +7,11 @@ import cartLogo from "../../logo/cart.png";
 const Modal = () => {
   const [showModal, setShowModal] = React.useState(false);
 
-  const [products,state, dispatch] = useContext(GlobalContext);
+  const [products,{cart}, dispatch] = useContext(GlobalContext);
   const getTotal = () => {
     let sum = 0;
 
-    state.cart.map(
+    cart.map(
       (e) =>
         (sum += Number(
           Number(e.amount) * Number(products.find((p) => p.id === e.id).price)
@@ -50,14 +50,14 @@ const Modal = () => {
                 {/*body*/}
                 <div className="relative px-6 flex flex-col justify-end">
                   <div className="my-4 text-blueGray-500 w-screen leading-relaxed">
-                    {state.cart.length > 0 ? (
+                    {cart.length > 0 ? (
                       <p>Item details</p>
                     ) : (
                       <p>Cart is Empty!</p>
                     )}
                   </div>
                   <div className="overflow-y-scroll  max-h-96 min-w-60">
-                    {state.cart.map((product, index) => (
+                    {cart.map((product, index) => (
                       <Item
                         id={product.id}
                         amount={product.amount}
@@ -65,7 +65,7 @@ const Modal = () => {
                       />
                     ))}
                   </div>
-                  {state.cart.length > 0 ? (
+                  {cart.length > 0 ? (
                     <div>
                       <div className="grid grid-cols-8">
                         <div className="col-span-5 flex justify-end">Total</div>
@@ -80,7 +80,7 @@ const Modal = () => {
                 {/*footer*/}
 
                 <div className=" p-6 border-t border-solid border-blueGray-200 rounded-b">
-                  {state.cart.length > 0 ? (
+                  {cart.length > 0 ? (
                     <div className="grid grid-cols-4">
                       <button
                         className={
