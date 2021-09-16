@@ -3,8 +3,6 @@ import { Reducer } from '../Reducer/Reducer';
 
 export const GlobalContext = createContext();
 
-const mydata = require('../data.json');
-
 
 export const GlobalContextProvider = props => {
     
@@ -16,28 +14,21 @@ export const GlobalContextProvider = props => {
         ]
     };
     const cache=useRef({});
-   
+    
     const apiUrl = "https://fakestoreapi.com/products";
-    // useEffect(()=>{
-    //     if(cache.current[apiUrl]){
-    //         setProducts(cache.current[apiUrl]);
-    //     }
-    //     else{
-    //     fetch(apiUrl)
-    //         .then(response=>response.json())
-    //             .then(data=>{setProducts(data);cache.current[url] = data;})
-    //                 .catch((err)=>console.log(err))
-    //     }
-    // },[]);
     useEffect(()=>{
-        setProducts(mydata);
+        if(localStorage.getItem('apiData')){
+            setProducts(JSON.parse(localStorage.getItem('apiData')));
+        }
+        else{
+        fetch(apiUrl)
+            .then(response=>response.json())
+                .then(data=>{localStorage.setItem('apiData',JSON.stringify(data));setProducts(data);})
+                    .catch((err)=>console.log(err))
+        }
     },[]);
     
-    
     let [state, dispatch] = useReducer(Reducer,initValue);
-    // useEffect(()=>{
-    //     dispatch({type:"initialize",products});
-    // },[products])
 
     return (
         <GlobalContext.Provider value={[products,state,dispatch]}>

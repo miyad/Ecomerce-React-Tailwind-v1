@@ -43,15 +43,7 @@ const Item = ({ id, amount }) => {
       <img onClick={e=>dispatch({type:"removeItem",data:{id,amount}})} src={deleteLogo} className="cursor-pointer col-span-1 w-7 py-2"></img>
     </div>
   );
-  // <div className={"flex flex-col "}>
-  //             <div>{title.substring(0,20)}..</div>
-  //             <div className="w-10"><img src={products.find(e=>e.id===id).image}></img></div>
-  //         </div>
-  //         <div className="mx-2">
-  //             ${price}
-  //             x<input onChange={(e)=>handleInputChange(e)} value={inputValue}  min={1} step={1} type={"number"} className={"mx-2 px-2 rounded-lg"}/>
-  //         </div>
-  //         <div>=${(price*amount).toFixed(2)}</div>
+  
 };
 
 export default Item;

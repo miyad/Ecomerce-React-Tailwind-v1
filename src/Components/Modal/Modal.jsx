@@ -10,7 +10,7 @@ const Modal = () => {
   const [products, { cart }, dispatch] = useContext(GlobalContext);
   const getTotal = () => {
     let sum = 0;
-    console.log("cart in getTotal = ", cart);
+    
     cart.map(
       (e) =>
         (sum += Number(
@@ -24,7 +24,7 @@ const Modal = () => {
     <>
       <img
         src={cartLogo}
-        className="w-16 mx-2 cursor-pointer mb-2"
+        className="w-8 md:w-12 lg:w-16 mx-2 cursor-pointer mb-4 lg:mb-2"
         alt={""}
         onClick={() => {
           setShowModal(true);
@@ -87,7 +87,7 @@ const Modal = () => {
                       <div className="grid grid-cols-4">
                     <button
                       className={"bg-red-500 col-span-2 p-2 mx-4  text-md rounded text-white"}
-                      onClick={(e) => dispatch({ type: "reset" })}
+                      onClick={(e) => { dispatch({ type: "reset" })}}
                     >
                       Clear Cart
                     </button>
