@@ -7,11 +7,11 @@ import cartLogo from "../../logo/cart.png";
 const Modal = () => {
   const [showModal, setShowModal] = React.useState(false);
 
-  const [products, { cart }, dispatch] = useContext(GlobalContext);
+  const [products,state, dispatch] = useContext(GlobalContext);
   const getTotal = () => {
     let sum = 0;
-    
-    cart.map(
+
+    state.cart.map(
       (e) =>
         (sum += Number(
           Number(e.amount) * Number(products.find((p) => p.id === e.id).price)
@@ -50,14 +50,14 @@ const Modal = () => {
                 {/*body*/}
                 <div className="relative px-6 flex flex-col justify-end">
                   <div className="my-4 text-blueGray-500 w-screen leading-relaxed">
-                    {cart.length > 0 ? (
+                    {state.cart.length > 0 ? (
                       <p>Item details</p>
                     ) : (
                       <p>Cart is Empty!</p>
                     )}
                   </div>
                   <div className="overflow-y-scroll  max-h-96 min-w-60">
-                    {cart.map((product, index) => (
+                    {state.cart.map((product, index) => (
                       <Item
                         id={product.id}
                         amount={product.amount}
@@ -65,17 +65,14 @@ const Modal = () => {
                       />
                     ))}
                   </div>
-                  {cart.length > 0 ? (
+                  {state.cart.length > 0 ? (
                     <div>
-                    <div className="grid grid-cols-8">
-                      <div className="col-span-5 flex justify-end">Total</div>
-                      <div className={" col-span-2 flex justify-end"}>
-                       $ {getTotal()}
+                      <div className="grid grid-cols-8">
+                        <div className="col-span-5 flex justify-end">Total</div>
+                        <div className={" col-span-2 flex justify-end"}>
+                          $ {getTotal()}
+                        </div>
                       </div>
-
-                      
-                    </div>
-
                     </div>
                   ) : null}
                   {/*<input  onChange={(e)=>handleInputChange(e)} value={inputValue}  min={1} step={1} type={"number"} className={"bg-gray-100 outline-black w-28  mx-12"}/>*/}
@@ -83,20 +80,25 @@ const Modal = () => {
                 {/*footer*/}
 
                 <div className=" p-6 border-t border-solid border-blueGray-200 rounded-b">
-                  {cart.length > 0 ? (
-                      <div className="grid grid-cols-4">
-                    <button
-                      className={"bg-red-500 col-span-2 p-2 mx-4  text-md rounded text-white"}
-                      onClick={(e) => { dispatch({ type: "reset" })}}
-                    >
-                      Clear Cart
-                    </button>
-                                        <Link className="bg-gray-700 mx-4 flex justify-center  col-span-2 text-md rounded text-white" to="/checkout">
-                                        <button className=" rounded">
-                                          Checkout
-                                        </button>
-                                      </Link>
-                                      </div>
+                  {state.cart.length > 0 ? (
+                    <div className="grid grid-cols-4">
+                      <button
+                        className={
+                          "bg-red-500 col-span-2 p-2 mx-4  text-md rounded text-white"
+                        }
+                        onClick={(e) => {
+                          dispatch({ type: "reset" });
+                        }}
+                      >
+                        Clear Cart
+                      </button>
+                      <Link
+                        className="bg-gray-700 mx-4 flex justify-center  col-span-2 text-md rounded text-white"
+                        to="/checkout"
+                      >
+                        <button className=" rounded">Checkout</button>
+                      </Link>
+                    </div>
                   ) : null}
                 </div>
               </div>

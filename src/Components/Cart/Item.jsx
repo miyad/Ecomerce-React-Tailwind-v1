@@ -8,9 +8,9 @@ const Item = ({ id, amount }) => {
     setInputValue(val);
     dispatch({ type: "set", data: { id, amount: val } });
   };
-
-  const [inputValue, setInputValue] = useState(amount);
   const [products, state, dispatch] = useContext(GlobalContext);
+  const [inputValue, setInputValue] = useState(state.cart.find(e=>e.id===id).amount);
+  
   const { title, price, image } = products.find((e) => e.id === id);
   return (
     <div
@@ -31,7 +31,7 @@ const Item = ({ id, amount }) => {
           <div className="px-1">x</div>
           <input
             onChange={(e) => handleInputChange(e)}
-            value={inputValue}
+            value={state.cart.find(e=>e.id===id).amount}
             min={1}
             step={1}
             type={"number"}

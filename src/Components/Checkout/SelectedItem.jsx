@@ -26,7 +26,9 @@ const SelectedItem = ({ id, amount }) => {
             <div className="px-2 flex">
               <div className="px-1">x</div>
               <div>
-                  {amount}
+              {state.cart.find((obj) => obj.id === id)
+                ? state.cart.find((obj) => obj.id === id).amount
+                : 0}
               </div>
             </div>
           </div>
