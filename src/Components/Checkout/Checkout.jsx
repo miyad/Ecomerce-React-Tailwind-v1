@@ -21,6 +21,7 @@ const Checkout = () => {
         );
         return sum.toFixed(2);
       };
+      
     return (
         <div className="flex flex-col justify-center items-center h-screen">
             <div className="font-bold text-lg">Your Order is Placed!</div>

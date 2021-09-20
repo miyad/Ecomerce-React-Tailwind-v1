@@ -6,7 +6,7 @@ const Cart = ({ product }) => {
   const [products, { cart }, dispatch] = useContext(GlobalContext);
   const [cartOptionClass, setCartOptionClass] = useState("p-2");
   const [cartAmountClass, setCartAmountClass] = useState(
-    "p-2 hidden flex justify-around"
+    "p-2 flex justify-around"
   );
 
   const enableCart = (e) => {

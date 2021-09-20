@@ -96,7 +96,7 @@ const Modal = () => {
                         className="bg-gray-700 mx-4 flex justify-center  col-span-2 text-md rounded text-white"
                         to="/checkout"
                       >
-                        <button className=" rounded">Checkout</button>
+                        <button className="rounded">Checkout</button>
                       </Link>
                     </div>
                   ) : null}

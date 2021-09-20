@@ -1,15 +1,15 @@
-import React, { useContext, useState } from "react";
+import React, { useContext} from "react";
 import { GlobalContext } from "../../GlobalContext/GlobalContext";
 import deleteLogo from '../../logo/delete.png';
 
 const Item = ({ id, amount }) => {
   const handleInputChange = (e) => {
     let val = e.target.value ? e.target.value : 1;
-    setInputValue(val);
+
     dispatch({ type: "set", data: { id, amount: val } });
   };
   const [products, {cart} , dispatch] = useContext(GlobalContext);
-  const [inputValue, setInputValue] = useState(cart.find(e=>e.id===id).amount);
+
   
   const { title, price, image } = products.find((e) => e.id === id);
   return (
@@ -20,7 +20,7 @@ const Item = ({ id, amount }) => {
     >
       <div className="col-span-6 flex items-center justify-between">
         <div>{title}</div>
-        <img src={image} className="w-20 h-20" />
+        <img src={image} className="w-20 h-20" alt={""}/>
       </div>
 
       <div className="col-span-3 flex flex-col">
@@ -40,7 +40,10 @@ const Item = ({ id, amount }) => {
         </div>
       </div>
       <div className="col-span-2 ">= ${(price*amount).toFixed(2)}</div>
-      <img onClick={e=>dispatch({type:"removeItem",data:{id,amount}})} src={deleteLogo} className="cursor-pointer col-span-1 w-7 py-2"></img>
+      <img onClick={() => dispatch({
+  type: "removeItem",
+  data: {id, amount}
+})} src={deleteLogo} className="cursor-pointer col-span-1 w-7 py-2" alt={"o"}/>
     </div>
   );
   
