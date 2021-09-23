@@ -7,7 +7,7 @@ import mainLogo from "../../logo/bee.png";
 import loadingLogo from "../../logo/loading.gif";
 
 const Home = () => {
-  const [products,{totalCount}, dispatch] = useContext(GlobalContext);
+  const [products,{totalCount}] = useContext(GlobalContext);
 
   if (products.length > 0)
     return (
