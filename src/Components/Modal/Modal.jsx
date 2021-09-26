@@ -1,114 +1,79 @@
-import React, { useContext, useState } from "react";
+import React from 'react';
 import Item from "../Cart/Item";
-import { GlobalContext } from "../../GlobalContext/GlobalContext";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import cartLogo from "../../logo/cart.png";
+import {Link} from "react-router-dom";
 
-const Modal = () => {
-  const [showModal, setShowModal] = React.useState(false);
-
-  const [products,{cart}, dispatch] = useContext(GlobalContext);
-  const getTotal = () => {
-    let sum = 0;
-
-    cart.map(
-      (e) =>
-        (sum += Number(
-          Number(e.amount) * Number(products.find((p) => p.id === e.id).price)
-        ))
-    );
-    return sum.toFixed(2);
-  };
-
-  return (
-    <>
-      <img
-        src={cartLogo}
-        className="w-8 md:w-12 lg:w-16 mx-2 cursor-pointer mb-4 lg:mb-2"
-        alt={""}
-        onClick={() => {
-          setShowModal(true);
-        }}
-      />
-
-      {showModal ? (
-        <div>
-          <div className=" justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-            <div className="relative w-auto my-6 mx-auto max-w-3xl">
-              {/*content*/}
-              <div className="border-0 rounded-lg shadow-lg  w-full bg-white">
-                {/*header*/}
-                <div className="flex items-start justify-between p-5 border-b border-solid border-blueGray-200 rounded-t">
-                  <h3 className="text-3xl font-semibold mx-4">Cart Items</h3>
-                  <button
-                    className="p-1 ml-auto bg-transparent  text-red-600 float-right text-3xl leading-none font-semibold outline-none focus:outline-none"
-                    onClick={() => setShowModal(false)}
-                  >
-                    x
-                  </button>
-                </div>
-                {/*body*/}
-                <div className="relative px-6 flex flex-col justify-end">
-                  <div className="my-4 text-blueGray-500 w-screen leading-relaxed">
-                    {cart.length > 0 ? (
-                      <p>Item details</p>
-                    ) : (
-                      <p>Cart is Empty!</p>
-                    )}
-                  </div>
-                  <div className="overflow-y-scroll  max-h-96 min-w-60">
-                    {cart.map((product, index) => (
-                      <Item
-                        id={product.id}
-                        amount={product.amount}
-                        key={index}
-                      />
-                    ))}
-                  </div>
-                  {cart.length > 0 ? (
-                    <div>
-                      <div className="grid grid-cols-8">
-                        <div className="col-span-5 flex justify-end">Total</div>
-                        <div className={" col-span-2 flex justify-end"}>
-                          $ {getTotal()}
+const Modal = ({cart,setIsOpen,total,dispatch,orientation}) => {
+    let position;
+    switch (orientation){
+        case "left":
+            position = "md:left-0 right-6 md:right-auto";
+            break;
+        case "middle":
+            position = "md:right-1/3 right-3 left-3 md:left-auto";
+            break;
+        case "right":
+            position = "md:right-0 left-6 md:left-auto";
+            break;
+        default:
+            position = "right-0"
+    }
+    return (
+        <div className={"w-screen bg-white z-50 inset-0 fixed bg-opacity-50 rounded"}>
+            <div className={`h-full px-4 w-full md:w-1/3 ${position} fixed bg-white`}>
+                    <div className={" text-2xl flex justify-between mb-2 mt-2"}>
+                        <div className={"px-4"}>
+                            Cart Items
                         </div>
-                      </div>
+                        <button className={"text-red-500 px-4 rounded-md"} onClick={()=>setIsOpen(false)}>
+                            x
+                        </button>
                     </div>
-                  ) : null}
-                  {/*<input  onChange={(e)=>handleInputChange(e)} value={inputValue}  min={1} step={1} type={"number"} className={"bg-gray-100 outline-black w-28  mx-12"}/>*/}
+                <hr/>
+                <div className="overflow-y-scroll  h-4/6 py-12">
+                    {cart?cart.map((product, index) => (
+                        <Item
+                            id={product.id}
+                            amount={product.amount}
+                            key={index}
+                        />
+                    )):null}
                 </div>
-                {/*footer*/}
-
-                <div className=" p-6 border-t border-solid border-blueGray-200 rounded-b">
-                  {cart.length > 0 ? (
-                    <div className="grid grid-cols-4">
-                      <button
-                        className={
-                          "bg-red-500 col-span-2 p-2 mx-4  text-md rounded text-white"
-                        }
-                        onClick={(e) => {
-                          dispatch({ type: "reset" });
-                        }}
-                      >
-                        Clear Cart
-                      </button>
-                      <Link
-                        className="bg-gray-700 mx-4 flex justify-center  col-span-2 text-md rounded text-white"
-                        to="/checkout"
-                      >
-                        <button className="rounded">Checkout</button>
-                      </Link>
+                <div>
+                {cart?cart.length > 0 ? (
+                    <div>
+                        <div className="flex md:justify-end justify-center md:px-16 text-xl mt-2">
+                            <div>
+                                Total ${total}
+                            </div>
+                        </div>
                     </div>
-                  ) : null}
+                ) : null:null}
                 </div>
-              </div>
+                <div className=" p-6 border-t border-solid border-blueGray-200 rounded-b text-white">
+                    {cart && cart.length > 0 ? (
+                        <div className="grid grid-cols-2 md:grid-cols-4 text-xl">
+                            <button
+                                className={
+                                    "bg-red-500 col-span-2 p-2 mx-4 rounded mb-2 md:mb-0"
+                                }
+                                onClick={() => {
+                                    dispatch({ type: "reset" });
+                                }}
+                            >
+                                Clear Cart
+                            </button>
+                            <Link
+                                className="bg-gray-700 col-span-2 mx-4 p-2 rounded text-center"
+                                to="/checkout"
+                            >
+                                <button  className="  rounded ">Checkout</button>
+                            </Link>
+                        </div>
+                    ) : null}
+                </div>
             </div>
-          </div>
-          <div className="opacity-25 fixed inset-0 z-40 bg-black" />
         </div>
-      ) : null}
-    </>
-  );
+    );
 };
 
 export default Modal;

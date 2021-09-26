@@ -15,7 +15,7 @@ const Item = ({ id, amount }) => {
   return (
     <div
       className={
-        "rounded-md grid grid-cols-12 justify-start items-end my-4 p-2 bg-blue-200 text-lg"
+        "rounded-md grid grid-cols-6 md:grid-cols-12 justify-start items-end my-4 p-2  text-lg border-b bg-blue-100 mx-2"
       }
     >
       <div className="col-span-6 flex items-center justify-between">
@@ -44,9 +44,12 @@ const Item = ({ id, amount }) => {
   type: "removeItem",
   data: {id, amount}
 })} src={deleteLogo} className="cursor-pointer col-span-1 w-7 py-2" alt={"o"}/>
+
     </div>
   );
   
 };
 
 export default Item;
+
+

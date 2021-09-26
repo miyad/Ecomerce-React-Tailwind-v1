@@ -12,8 +12,8 @@ const SelectedItem = ({ id, amount }) => {
       }
     >
       <div className="col-span-3 flex items-center justify-between">
-        <div className="w-48">{title}</div>
-        <img src={image} className="w-20 h-20" />
+        <div className="w-auto">{title}</div>
+        <img src={image} className="w-20 h-20"  alt={""}/>
       </div>
 
       <div className="col-span-1 flex flex-col">
