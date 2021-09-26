@@ -1,10 +1,5 @@
 import React, { useContext } from 'react';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route,
-    Link
-  } from "react-router-dom";
+import {Link} from "react-router-dom";
 import { GlobalContext } from '../../GlobalContext/GlobalContext';
 
 import SelectedItem from './SelectedItem';
@@ -23,7 +18,7 @@ const Checkout = () => {
       };
       
     return (
-        <div className="flex flex-col justify-center items-center h-screen">
+        <div className="flex flex-col justify-center items-center h-screen max-w-1/2">
             <div className="font-bold text-lg">Your Order is Placed!</div>
             <div className=" max-h-96 overflow-auto">
                 {cart.map((item,index)=><SelectedItem id={item.id} amount={item.amount} key={index}/>)}
@@ -35,7 +30,7 @@ const Checkout = () => {
                 <div>${getTotal()}</div>
             </div>
             <Link to="/">
-                <button onClick={(e) => dispatch({ type: "reset" })} className="bg-blue-700 font-bold text-white cursor-pointer mt-6 p-2 rounded hover:bg-black focus:ring-blue-400" >Go Home</button>
+                <button onClick={() => dispatch({ type: "reset" })} className="bg-blue-700 font-bold text-white cursor-pointer mt-6 p-2 rounded hover:bg-black focus:ring-blue-400" >Go Home</button>
             </Link>
         </div>
     );

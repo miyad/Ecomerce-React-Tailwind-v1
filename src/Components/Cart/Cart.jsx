@@ -31,10 +31,7 @@ const Cart = ({ product }) => {
     dispatch({ type: "delete", id });
   };
 
-  const emptyHandler = () => {
-    setCartOptionClass(cartOptionClass.replace("hidden", ""));
-    setCartAmountClass(cartAmountClass + " hidden");
-  };
+
 
   return (
     <div>
